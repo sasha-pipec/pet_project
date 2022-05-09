@@ -1,0 +1,45 @@
+{% extends 'coloring_pages/base.html'%}
+{%load static%}
+{% load filter%}
+
+{% block content%}
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Категории раскрасок</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                aria-label="Закрыть"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="dropdown mt-3">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-bs-toggle="dropdown">
+                Выбрать категорию
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                {% for cat in cats%}
+                <li><a class="dropdown-item" href="{{ cat.get_absolute_url}}">{{cat.name}}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        {% for page in Coloring_pages %}
+        <div class="col">
+            <div class="container-iner">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="/media/{{page.photo}}" alt="Card image cap">
+                    <h5 class="card-title">{{page}}</h5>
+                    <div class="card-body">
+                        <p class="card-text">Тема: {{page.tema}}</p>
+                        <a href="{{page.get_absolute_url}}" class="btn btn-primary">Посмотреть</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{%endblock%}
